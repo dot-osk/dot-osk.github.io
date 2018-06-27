@@ -70,7 +70,7 @@
 
 <h2 id="安装hugo">安装hugo</h2>
 
-<p>由多种安装方式:</p>
+<p>有多种安装方式:</p>
 
 <ul>
 <li>下载预编译好的二进制文件, 解压即可使用.</li>
@@ -200,9 +200,7 @@ Content with a past expirydate value
 
 <h2 id="魔改">魔改</h2>
 
-<h3 id="主题的魔改">主题的魔改</h3>
-
-<h4 id="修改主题的翻译">修改主题的翻译</h4>
+<h3 id="修改主题的翻译">修改主题的翻译</h3>
 
 <p>主题目录中有 <code>i18n/en.yaml</code> 将里面的短语翻译后另存为<code>i18n/zh-cmn.yaml</code>即可, 自定义的 copyright 信息也可以在这里修改.</p>
 
@@ -211,7 +209,9 @@ Content with a past expirydate value
 <pre><code class="language-toml">DefaultContentLanguage = &quot;zh-cmn&quot;
 </code></pre>
 
-<h4 id="替换-google的cdn-主题的-layouts-partials-header-html-里面">替换 Google的CDN, 主题的 <code>layouts/partials/header.html</code> 里面:</h4>
+<h3 id="替换-google的cdn">替换 Google的CDN</h3>
+
+<p>主题的 <code>layouts/partials/header.html</code> 里面:</p>
 
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&quot;&gt;
 </code></pre>
@@ -230,7 +230,9 @@ Content with a past expirydate value
 &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//fonts.gstatic.com&quot;&gt;
 </code></pre>
 
-<h4 id="添加代码语法高亮-我博客中需要插入一些代码文本-默认的显示不够漂亮-hugo-的语法高亮没测试-我直接使用-highlight-js-库完成">添加代码语法高亮, 我博客中需要插入一些代码文本, 默认的显示不够漂亮, hugo 的语法高亮没测试, 我直接使用 highlight.js 库完成:</h4>
+<h3 id="添加代码语法高亮">添加代码语法高亮</h3>
+
+<p>我博客中需要插入一些代码文本, 默认的显示不够漂亮, hugo 的语法高亮没测试, 我直接使用 highlight.js 库完成:</p>
 
 <p>首先在 <a href="https://highlightjs.org/download/">highlightjs.org</a> 下载 <code>highlight.min.js</code>, 保存到主题的 <code>static/js/</code> 目录.</p>
 
