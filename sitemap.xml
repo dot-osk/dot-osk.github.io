@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2018/07/27/set-windows-background-via-python/</loc>
+    <lastmod>2018-07-27T14:29:50+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2018/05/12/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2018-05-12T17:24:40+08:00</lastmod>
   </url>
@@ -25,13 +30,19 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-05-12T17:24:40+08:00</lastmod>
+    <lastmod>2018-07-27T14:29:50+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-05-12T17:24:40+08:00</lastmod>
+    <lastmod>2018-07-27T14:29:50+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2018-07-27T14:29:50+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -42,13 +53,25 @@
   </url>
   
   <url>
-    <loc>/tags/%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2018-05-12T17:24:40+08:00</lastmod>
+    <loc>/tags/windows/</loc>
+    <lastmod>2018-07-27T14:29:50+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</loc>
+    <lastmod>2018-07-27T14:29:50+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2018-05-12T17:24:40+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2018-05-12T17:24:40+08:00</lastmod>
     <priority>0</priority>
   </url>

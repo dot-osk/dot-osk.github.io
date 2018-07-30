@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Miguel&#39;s Pages</title>
-    <link>/</link>
-    <description>Recent content on Miguel&#39;s Pages</description>
+    <title>代码片段 on Miguel&#39;s Pages</title>
+    <link>/categories/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</link>
+    <description>Recent content in 代码片段 on Miguel&#39;s Pages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cmn</language>
     <lastBuildDate>Fri, 27 Jul 2018 14:29:50 +0800</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,17 +18,6 @@
       
       <guid>/2018/07/27/set-windows-background-via-python/</guid>
       <description>&lt;p&gt;写了一个python脚本来爬取bing每日壁纸, 后又希望自动设置为桌面壁纸, 写了个小程序试了一下, 工作正常. 分享下设置壁纸的代码.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>使用Hugo搭建博客</title>
-      <link>/2018/05/12/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</link>
-      <pubDate>Sat, 12 May 2018 17:24:40 +0800</pubDate>
-      
-      <guid>/2018/05/12/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid>
-      <description>&lt;p&gt;把博客从hexo换成hugo.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
