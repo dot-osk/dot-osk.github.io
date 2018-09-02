@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Miguel&#39;s Pages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cmn</language>
-    <lastBuildDate>Sat, 12 May 2018 17:24:40 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Sep 2018 09:17:05 +0800</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Arduino</title>
+      <link>/tags/arduino/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/tags/arduino/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flashrom</title>
+      <link>/tags/flashrom/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/tags/flashrom/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Hugo</title>
@@ -26,6 +44,15 @@
       <pubDate>Fri, 27 Jul 2018 14:29:50 +0800</pubDate>
       
       <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi</title>
+      <link>/tags/raspberry-pi/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/tags/raspberry-pi/</guid>
       <description></description>
     </item>
     

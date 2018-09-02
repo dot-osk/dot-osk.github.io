@@ -18,6 +18,10 @@ section {
 	display: block;
 }
 
+.post {
+	font-size: 1rem;
+}
+
 :focus::-webkit-input-placeholder {
 	color: transparent;
 }

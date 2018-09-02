@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Miguel&#39;s Pages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cmn</language>
-    <lastBuildDate>Fri, 27 Jul 2018 14:29:50 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Sep 2018 09:17:05 +0800</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using Raspberry Pi to Fix the Broken Tablet</title>
+      <link>/2018/09/02/using-raspberry-pi-to-fix-the-broken-tablet/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/2018/09/02/using-raspberry-pi-to-fix-the-broken-tablet/</guid>
+      <description>&lt;p&gt;修改 UEFI 设置把平板变砖了, 抱着死马当活马医的心态自己折腾了一下, 把 Nor Flash 重新刷写, 居然救活了.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Set Windows Background via Python</title>
