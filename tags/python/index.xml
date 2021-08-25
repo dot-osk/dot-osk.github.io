@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Miguel&#39;s Pages</title>
+    <link>/tags/python/</link>
+    <description>Recent content in python on Miguel&#39;s Pages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 27 Jul 2018 14:29:50 +0800</lastBuildDate><atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Python 来修改 Windows 桌面壁纸</title>
+      <link>/posts/set-windows-wallpaper-via-python/</link>
+      <pubDate>Fri, 27 Jul 2018 14:29:50 +0800</pubDate>
+      
+      <guid>/posts/set-windows-wallpaper-via-python/</guid>
+      <description>&lt;p&gt;写了一个python脚本来爬取bing每日壁纸, 后又希望自动设置为桌面壁纸, 写了个小程序试了一下, 工作正常. 分享下设置壁纸的代码.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

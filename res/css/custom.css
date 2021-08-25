@@ -1,0 +1,45 @@
+.container {
+    max-width: 1680px;
+}
+
+blockquote {
+    background-color: gainsboro;
+}
+
+/* mod highlight table border */
+td pre {
+	border: 1px dashed rgb(77, 77, 77);
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+div.post__content {
+    font-size: 1rem;
+}
+
+div.post__content img {
+	padding: 1px 1px;
+	border: 1px dotted grey;
+}
+
+div.primary {
+    flex-basis: 71%;
+}
+
+aside.sidebar {
+    flex-basis: 26%;
+}
+h1, h2 {
+    border-bottom: 1px solid #dadada;
+    border-top: 0;
+}
+
+h1, h2, h3, h4, h5 {
+    padding-top: 30px;
+}
+
+/*
+h1::before, h2::before {
+    content: "> ";
+}
+*/

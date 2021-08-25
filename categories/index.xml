@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Miguel&#39;s Pages</title>
+    <link>/categories/</link>
+    <description>Recent content in Categories on Miguel&#39;s Pages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 23 Aug 2021 16:14:43 +0800</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows</title>
+      <link>/categories/windows/</link>
+      <pubDate>Mon, 23 Aug 2021 16:14:43 +0800</pubDate>
+      
+      <guid>/categories/windows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blog</title>
+      <link>/categories/blog/</link>
+      <pubDate>Sat, 21 Aug 2021 18:09:10 +0800</pubDate>
+      
+      <guid>/categories/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hardware</title>
+      <link>/categories/hardware/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/categories/hardware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>代码片段</title>
+      <link>/categories/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</link>
+      <pubDate>Fri, 27 Jul 2018 14:29:50 +0800</pubDate>
+      
+      <guid>/categories/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

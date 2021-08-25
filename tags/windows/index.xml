@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on Miguel&#39;s Pages</title>
+    <link>/tags/windows/</link>
+    <description>Recent content in Windows on Miguel&#39;s Pages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 23 Aug 2021 16:14:43 +0800</lastBuildDate><atom:link href="/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>重装 Windows 系统后连接待机/现代待机设备无法进入 DRIPS 的处理(DisableInboxPepGeneratedConstraints)</title>
+      <link>/posts/modern-standby-device-not-go-to-drips-after-reinstall-windows/</link>
+      <pubDate>Mon, 23 Aug 2021 16:14:43 +0800</pubDate>
+      
+      <guid>/posts/modern-standby-device-not-go-to-drips-after-reinstall-windows/</guid>
+      <description>&lt;p&gt;给新购买的 Yoga Duet 平板重装系统后, 发现平板睡眠时无法进入 DRIPS, 导致睡眠功耗异常高, 且睡眠唤醒过程时常蓝屏, 而 OEM 的系统就一切正常, 见鬼!&lt;/p&gt;
+&lt;p&gt;最终在 OEM 的系统中发现了一处特殊的设置, 才算成功解救一直炸裂的睡眠.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用 Python 来修改 Windows 桌面壁纸</title>
+      <link>/posts/set-windows-wallpaper-via-python/</link>
+      <pubDate>Fri, 27 Jul 2018 14:29:50 +0800</pubDate>
+      
+      <guid>/posts/set-windows-wallpaper-via-python/</guid>
+      <description>&lt;p&gt;写了一个python脚本来爬取bing每日壁纸, 后又希望自动设置为桌面壁纸, 写了个小程序试了一下, 工作正常. 分享下设置壁纸的代码.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

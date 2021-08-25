@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hardware on Miguel&#39;s Pages</title>
+    <link>/categories/hardware/</link>
+    <description>Recent content in hardware on Miguel&#39;s Pages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 02 Sep 2018 09:17:05 +0800</lastBuildDate><atom:link href="/categories/hardware/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用树莓派给变砖平板刷回 BIOS</title>
+      <link>/posts/using-raspberrypi-to-fix-brick-tablet/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/posts/using-raspberrypi-to-fix-brick-tablet/</guid>
+      <description>&lt;p&gt;修改 UEFI 设置把平板变砖了, 抱着死马当活马医的心态自己折腾了一下, 把 Nor Flash 重新刷写, 居然救活了.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

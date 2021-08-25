@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Miguel&#39;s Pages</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Miguel&#39;s Pages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 23 Aug 2021 16:14:43 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows</title>
+      <link>/tags/windows/</link>
+      <pubDate>Mon, 23 Aug 2021 16:14:43 +0800</pubDate>
+      
+      <guid>/tags/windows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Windows 电源管理</title>
+      <link>/tags/windows-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 23 Aug 2021 16:14:43 +0800</pubDate>
+      
+      <guid>/tags/windows-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blog</title>
+      <link>/tags/blog/</link>
+      <pubDate>Sat, 21 Aug 2021 18:09:10 +0800</pubDate>
+      
+      <guid>/tags/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>/tags/hugo/</link>
+      <pubDate>Sat, 21 Aug 2021 18:09:10 +0800</pubDate>
+      
+      <guid>/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>arduino</title>
+      <link>/tags/arduino/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/tags/arduino/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>flashrom</title>
+      <link>/tags/flashrom/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/tags/flashrom/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raspberry pi</title>
+      <link>/tags/raspberry-pi/</link>
+      <pubDate>Sun, 02 Sep 2018 09:17:05 +0800</pubDate>
+      
+      <guid>/tags/raspberry-pi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>/tags/python/</link>
+      <pubDate>Fri, 27 Jul 2018 14:29:50 +0800</pubDate>
+      
+      <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

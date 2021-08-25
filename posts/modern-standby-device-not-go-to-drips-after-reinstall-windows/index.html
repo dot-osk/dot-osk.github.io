@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>重装 Windows 系统后连接待机/现代待机设备无法进入 DRIPS 的处理(DisableInboxPepGeneratedConstraints) - Miguel&#39;s Pages</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/res/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Miguel&#39;s Pages" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Miguel&#39;s Pages</div>
+					<div class="logo__tagline">Miguel X 的个人小站</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">菜单</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/posts/">
+				
+				<span class="menu__text">博客文章</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/categories/">
+				
+				<span class="menu__text">所有分类</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tags/">
+				
+				<span class="menu__text">所有标签</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/about/">
+				
+				<span class="menu__text">关于我</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">重装 Windows 系统后连接待机/现代待机设备无法进入 DRIPS 的处理(DisableInboxPepGeneratedConstraints)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">Miguel X</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-08-23T16:14:43&#43;08:00">August 23, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/windows/" rel="category">Windows</a>
+	</span>
+</div></div>
+		</header>
+<div class="post__toc toc">
+	<div class="toc__title">目录</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr-太长不看">TL;DR /太长不看</a></li>
+    <li><a href="#不正常的睡眠">不正常的睡眠</a></li>
+    <li><a href="#设置-disableinboxpepgeneratedconstraints-后的变化">设置 DisableInboxPepGeneratedConstraints 后的变化</a></li>
+    <li><a href="#后续观察">后续观察</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>给新购买的 Yoga Duet 平板重装系统后, 发现平板睡眠时无法进入 DRIPS, 导致睡眠功耗异常高, 且睡眠唤醒过程时常蓝屏, 而 OEM 的系统就一切正常, 见鬼!</p>
+<p>最终在 OEM 的系统中发现了一处特殊的设置, 才算成功解救一直炸裂的睡眠.</p>
+<h2 id="tldr-太长不看">TL;DR /太长不看</h2>
+<p>如果你也遇到的类似的问题, 可以尝试导入下面的注册表后重启试试看睡眠功耗正常没有. 若无效, 建议打开注册表编辑器删除 <code>DisableInboxPepGeneratedConstraints</code> 或者设置值为 <code>0</code> 来还原.</p>
+<p>OEM 系统中, 可能会在注册表中设置以下的值:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">Windows Registry Editor Version 5.00</span>
+
+<span style="color:#66d9ef">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]</span>
+<span style="color:#a6e22e">&#34;DisableInboxPepGeneratedConstraints&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">dword:00000001</span>
+</code></pre></div><blockquote>
+<p>点击此处下载 <a href="DisableInboxPepGeneratedConstraints.reg">DisableInboxPepGeneratedConstraints.reg</a> 注册表文件, 可直接导入测试.</p>
+</blockquote>
+<p>我没有在微软官方网站找到文档解释此注册表设置的影响, 但 OEM 的系统设置了此键, 因此平板可以正常进入 DRIPS.</p>
+<h2 id="不正常的睡眠">不正常的睡眠</h2>
+<p>设备是 S0ix 现代待机(即之前的连接待机), 嫌弃原装系统重装后噩梦开始, 平板一直不正常, 基本无法舒心使用, 遇到了这些情况:</p>
+<ul>
+<li>睡眠或者唤醒中容易蓝屏死机. (OEM 系统无此问题)</li>
+<li>睡眠功耗过高, 睡眠中电池消耗速度过快.</li>
+<li>经过简单分析, 发现设备无法进入 DRIPS, 睡眠过程中一直有活动.</li>
+<li><code>powercfg /sleepstudy</code> 报告显示存储设备在睡眠过程中一直唤醒.</li>
+<li>设置现代待机中网络断开无任何帮助.</li>
+</ul>
+<p>微软官方文档介绍可以使用 Windows Performance Analyzer 工具诊断现代待机睡眠问题, 但我不会使用 Windows Performance Analyzer, 只能看出计算机没有进入 DRIPS 状态.</p>
+<blockquote>
+<p>这是异常的 <code>powercfg /sleepstudy</code> 报告:</p>
+</blockquote>
+<p><img src="img/Bad_CS_sleepstudy.jpg" alt="sleepstudy"></p>
+<p>可以看到, 睡眠功耗高达 1.2W, 不到 3 小时就可能因为电池消耗过快而自动转入休眠 (默认情况下, 睡眠耗电超过 5% 即转入休眠).</p>
+<blockquote>
+<p>这是异常的 WPA 记录的日志, 我不会用 WPA, 但晃眼可以看出, 整个睡眠过程中, 平板一直保持活动 (不是维护/更新等后台导致的活动)</p>
+</blockquote>
+<p><img src="img/Bad_CS_WPA_activities.jpg" alt="wpa"></p>
+<h2 id="设置-disableinboxpepgeneratedconstraints-后的变化">设置 DisableInboxPepGeneratedConstraints 后的变化</h2>
+<blockquote>
+<p>设置 <code>DisableInboxPepGeneratedConstraints =1</code> 重启后, <code>sleepstudy</code> 可以看出设备正常睡眠, 能进入 DRIPS.</p>
+</blockquote>
+<p><img src="img/Good_CS_sleepstudy-disconnected-standby.jpg" alt="sleepstudy"></p>
+<p>1.2W vs 0.2W 的睡眠功耗, 相差可以说很大了, 0.2W 是比较优秀的情况, 极端情况下, 也是 1.5W vs 0.5W (比较少见).</p>
+<blockquote>
+<p>WPA 报告中, 也可见设备睡眠过程中, 几乎无活动了, 也能进入 DRIPS 了.</p>
+</blockquote>
+<p><img src="img/Good_CS_WPA_activities.jpg" alt="WPA"></p>
+<p><img src="img/Good_CS_WPA_DRIPS.jpg" alt="WPA"></p>
+<h2 id="后续观察">后续观察</h2>
+<p>微软原版 ISO 重装 + 设置 <code>DisableInboxPepGeneratedConstraints =1</code> 后, 我已经用了 2 个多月了, 平板没有出现过任何蓝屏问题, 现代待机睡眠也变得正常, 当然, 相对于 S3 待机, 耗电还是有点大, 但我已经完全能接受.</p>
+<p>根据 <code>powercfg /sleepstudy</code> 报告分析, 大部分情况下, 待机 24 小时耗电不到 20%, 也就是说, 每小时耗电不到 1% (大部分情况下每小时 0.7% 左右), 偶尔偏高, 但不影响.</p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/windows/" rel="tag">Windows</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/windows-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/" rel="tag">Windows 电源管理</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Miguel X avatar" src="/res/avatar.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">关于 Miguel X</span>
+	</div>
+	<div class="authorbox__description">
+		一位经历中年危机中的 90 后&hellip;
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/refresh-my-blog/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;上一篇</span>
+			<p class="pager__title">翻新博客 (继续使用 hugo)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="搜索…" value="" name="q" aria-label="搜索…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/modern-standby-device-not-go-to-drips-after-reinstall-windows/">重装 Windows 系统后连接待机/现代待机设备无法进入 DRIPS 的处理(DisableInboxPepGeneratedConstraints)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/refresh-my-blog/">翻新博客 (继续使用 hugo)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-raspberrypi-to-fix-brick-tablet/">使用树莓派给变砖平板刷回 BIOS</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/set-windows-wallpaper-via-python/">使用 Python 来修改 Windows 桌面壁纸</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blog/">blog</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hardware/">hardware</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/windows/">Windows</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">代码片段</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/arduino/" title="arduino">arduino (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="blog">blog (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/flashrom/" title="flashrom">flashrom (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hugo/" title="hugo">hugo (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/raspberry-pi/" title="raspberry pi">raspberry pi (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/windows/" title="Windows">Windows (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/windows-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/" title="Windows 电源管理">Windows 电源管理 (1)</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社交</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/dot-osk" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:x@migueltek.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>x@migueltek.com</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+<div class="footer__links">
+	<a class="footer__link" href="/about/">联系我</a>
+</div>
+		<div class="footer__copyright">
+			&copy; 2021 MiguelTek.com.
+			<span class="footer__copyright-credits">基于 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 引擎和 <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> 主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/res/js/custom.js"></script></body>
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>使用树莓派给变砖平板刷回 BIOS - Miguel&#39;s Pages</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/res/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Miguel&#39;s Pages" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Miguel&#39;s Pages</div>
+					<div class="logo__tagline">Miguel X 的个人小站</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">菜单</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/posts/">
+				
+				<span class="menu__text">博客文章</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/categories/">
+				
+				<span class="menu__text">所有分类</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tags/">
+				
+				<span class="menu__text">所有标签</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/about/">
+				
+				<span class="menu__text">关于我</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">使用树莓派给变砖平板刷回 BIOS</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">Miguel X</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-02T09:17:05&#43;08:00">September 02, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/hardware/" rel="category">hardware</a>
+	</span>
+</div></div>
+		</header>
+<div class="post__toc toc">
+	<div class="toc__title">目录</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#长文预警">长文预警</a></li>
+    <li><a href="#0x00-前情提要">0x00 前情提要</a></li>
+    <li><a href="#0x01-修复前做的一些必须功课">0x01 修复前做的一些必须功课</a>
+      <ul>
+        <li><a href="#bios-文件">BIOS 文件</a></li>
+        <li><a href="#flash-了解一下">Flash 了解一下</a></li>
+        <li><a href="#确认-debug-焊盘和-flash-引脚的对应关系">确认 DEBUG 焊盘和 Flash 引脚的对应关系</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x01-编程器">0x01 编程器</a>
+      <ul>
+        <li><a href="#flashrom">Flashrom</a></li>
+        <li><a href="#frser-duino">frser-duino</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x02-折腾-真的很折腾">0x02 折腾, 真的很折腾</a>
+      <ul>
+        <li><a href="#电平转换是一个深坑">电平转换是一个深坑</a></li>
+        <li><a href="#失败的-diy">失败的 DIY</a></li>
+        <li><a href="#失败">失败</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x03-树莓派救砖">0x03 树莓派救砖</a>
+      <ul>
+        <li><a href="#启用-spi-支持">启用 SPI 支持</a></li>
+        <li><a href="#连接-flash">连接 Flash</a></li>
+        <li><a href="#测试">测试</a></li>
+        <li><a href="#连上坏平板再测试">连上坏平板再测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x04-正式开工">0x04 正式开工</a>
+      <ul>
+        <li><a href="#备份-bios">备份 BIOS</a></li>
+        <li><a href="#刷新的-bios">刷新的 BIOS</a></li>
+        <li><a href="#后续">后续</a></li>
+      </ul>
+    </li>
+    <li><a href="#0xff-修改-raw-flash-image">0xff 修改 Raw Flash Image</a>
+      <ul>
+        <li><a href="#继续作si">继续作si</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>修改 UEFI 设置把平板变砖了, 抱着死马当活马医的心态自己折腾了一下, 把 Nor Flash 重新刷写, 居然救活了.</p>
+<h2 id="长文预警">长文预警</h2>
+<p>这篇文章比较长, 包含一些图片, 没有什么太有技术含量的东西, 毕竟学习电子这么多年我自己连个 SPI 通信都没有写过, 实在惭愧, 现在没有继续学习电子, 以前学过的东西也忘的差不多. 所以各位高手可以 <code>Ctrl + W</code> 了.</p>
+<p>各位留下的朋友看个高兴就好, 如果我的操作有问题, 欢迎邮件联系我一起交流.</p>
+<hr>
+<h2 id="0x00-前情提要">0x00 前情提要</h2>
+<p>最近拿出吃灰的旧平板使用, 发现微软在帮你淘汰旧设备, 全新安装的 Windows 10 1709,1803 触屏打字爆卡. 准备换回 1703, 结果发现 1703 下个月停止支持&hellip; 无奈只能安装 LTSB 2016 了, 商店什么的可以加回来, 但是 Edge 浏览器和虚拟触控板功能就没办法了, 只能将就.</p>
+<p>安装完成后, 发现 Secure Boot 居然没有打开, 不能忍, 进入 BIOS 设置, 发现 BIOS 被重置了, 然后跟着感觉修改了一些自己需要的地方, 保存设置重启. 然后平板就变砖了, Boom! 我算是服了这山寨厂家了, 这已经是我第N次踩地雷了, BIOS设置里面有几个选项一改就变砖, 血泪的售后教训, 由于很久不用, 又忘记了这些地雷.</p>
+<p>算了吧, 本来就是备用的, 除了看看 PDF 没啥用, 但是拿来看 PDF 确实又方便, 配合 Onenote 很好用. 找售后吧, 售后可能要我自费修理, 垃圾玩意儿我是不想花钱了.</p>
+<hr>
+<h2 id="0x01-修复前做的一些必须功课">0x01 修复前做的一些必须功课</h2>
+<h3 id="bios-文件">BIOS 文件</h3>
+<p>要做修复, 必须要有 BIOS, 官方不提供, 尝试 Google 了一下 &ldquo;XXX BIOS&rdquo;, 只有一个外国论坛里面有人分享了一份备份出来的 BIOS 文件, 赶紧注册下载了一份. BIOS 到手, 大问题之一解决.</p>
+<h3 id="flash-了解一下">Flash 了解一下</h3>
+<p>接下来是拆机, 这没什么好说的, 拿塑料卡片沿着缝隙走一圈就打开了, 拆下用于散热的屏蔽罩(功能还真多&hellip;), 就能看到典型的8脚 Nor Flash 芯片了. 这类 BIOS 芯片一般是 SPI 接口的, 我的平板使用的是 Winbond 的 <code>25Q64FWIG</code>, 厂家还预留了测试用的焊盘, 如果不出意外, 这将大大方便了我的修复操作, 因为不用自己在引脚焊盘上焊接飞线.</p>
+<p><img src="spi-flash-chip_l.jpg" alt="SPI Flash 和测试焊盘"></p>
+<p>在 Winbond 官方找到了芯片的 <a href="http://www.winbond.com/resource-files/w25q64fw%20revn%2005182017%20sfdp.pdf">DataSheet</a>, 根据数据表, 提一些需要的信息:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">W25Q64FW
+
+64M-bit 1.8V Serial Flash Memory with uniform 4KB sectors and Dual/Quad SPI and QPI
+
+    Single/Dual/Quad SPI and QPI operation
+    1.65 to 1.95V power supply
+    4mA active read current, 1µA power down current
+</code></pre></div><p>以及最重要的引脚功能说明:</p>
+<p><img src="25q64-ds.png" alt=" 25Q64 DS "></p>
+<p>其实, 引脚信息也不太重要, 因为一般都是这个引脚排列.</p>
+<h3 id="确认-debug-焊盘和-flash-引脚的对应关系">确认 DEBUG 焊盘和 Flash 引脚的对应关系</h3>
+<p>忘了介绍下 SPI 总线, 高手们直接无视吧: SPI 总线是一种串行的通信协议, 一共使用4根信号线进行通信, 分别是: MISO(从设备输出,主设备输入), MOSI(主设备输出, 从设备输入), SCK(SPI时钟信号), CS(SPI片选).</p>
+<p>在放大镜和万用表二极管测试功能的帮助下, 确认了焊盘的功能:</p>
+<p><img src="pad-function_l.jpg" alt="焊盘"></p>
+<p>然后给平板通电, 用万用表检测 1.8V的焊盘上确实有 1.79V 左右的电压, 芯片的 WP, RESET 引脚也有1.8v 左右的电压, 正常的. 其实我还有一个山寨的逻辑分析仪, 可以用来进一步确定 SPI 信号线是否正确, 只是觉得麻烦+没有必要就没有继续进行了(后续补充: 估计这逻辑分析仪也分析不出什么来, 这板子的SPI速率应该大大超过山寨逻辑分析仪的采样率了).</p>
+<hr>
+<h2 id="0x01-编程器">0x01 编程器</h2>
+<p>网上不少帖子都说过可以用 CH3?? 芯片的编程器来编程 Flash, 但是我不想在这个破板子上花钱, 而且购买周期太久. 所以突发奇想: SPI 是一种标准总线, Arduino 有 SPI 接口可以和芯片通信, 又有串口可以和主机通信, 那么有没有人尝试过用 Ardunio 作为 Flash 的编程器呢. Google 了一下, 确实有.</p>
+<h3 id="flashrom">Flashrom</h3>
+<p>Flashrom <a href="https://www.flashrom.org/">flashrom.org</a> 是一个开源的跨平台的烧录工具, 提供了不少的芯片支持和编程器支持. 用于识别, 读取, 写入, 验证, 和擦除各种 Flash 芯片, 比如主板, 网卡 rom 等.</p>
+<ul>
+<li>支持多种接口的Flash, Supports parallel, LPC, FWH and SPI flash interfaces.</li>
+<li>命令行工具, 一些 programmer 需要root权限操作.</li>
+<li>支持多种操作系统平台.</li>
+</ul>
+<p>在 Flashrom 的 <a href="https://www.flashrom.org/Supported_hardware">硬件支持列表</a> 上找到了 W25Q64FW 芯片的支持, 而且是良好的支持.</p>
+<p>运行 <code>pacman -Sy flashrom</code> 即可安装 <code>flashrom 1.0</code>.</p>
+<h3 id="frser-duino">frser-duino</h3>
+<p><a href="https://github.com/urjaman/frser-duino">frser-duino</a> 是烧录到 Arduino 板子上的固件, 用于和主机/上位机的 flashrom 配合完成对 Flash 的读写和擦除等操作.另外一个类似的固件: serprog-duino, 但建议使用frser-duino.</p>
+<p>先使用 ftdi 模式试试,这种方式是 USB-to-Serial 串口来连接 Arduino 板子时使用的模式.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git clone  --recurse-submodules -j2 https://github.com/urjaman/frser-duino
+
+<span style="color:#75715e"># 编辑Makefile, 看下哪些参数需要修改下:</span>
+<span style="color:#75715e"># MMCU?=atmega328p 正确, 其他芯片的arduino需要修改make的命令行参数传递进去</span>
+
+<span style="color:#75715e"># 生成 arduino 固件</span>
+make ftdi
+<span style="color:#75715e"># 下载固件到 arduino 板子上</span>
+make flash-ftdi
+</code></pre></div><p>注意: 用户需要是uucp组的才能访问 ttyUSB0 设备.</p>
+<p>如果下载失败, 可能是串口速度没正确, 默认的速率是57600, 需要修改下 Makefile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-patch" data-lang="patch">flash-ftdi:
+<span style="color:#f92672">-       BLBAUD=57600 SERIAL_DEV=/dev/ttyUSB0 $(MAKE) program
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+       SERIAL_DEV=/dev/ttyUSB0 $(MAKE) program
+</span></code></pre></div><p>这里我又想吐槽微软了, 现在是8102年了 Hyper-V 还是不支持 USB 重定向, 连串口重定向也没有? 要实现需要使用一些第三方的工具. 幸好我的 ArchLinux 可以在虚拟机和物理机两种运行状态下直接切换, 重启到 ArchLinux 里面再次运行 <code>make flash-ftdi</code> 下载固件成功.</p>
+<h2 id="0x02-折腾-真的很折腾">0x02 折腾, 真的很折腾</h2>
+<p>万事俱备, 只欠东风. 首先找了个坏U盾上的 Flash, 3.3v的芯片, 将 Arduino pro mini 的供电调成 3.3v, 照下面的连线方式连接:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Arduino引脚编号     SPI Flash的引脚
+
+数字10        &lt;----&gt;  CS
+数字11        &lt;----&gt;  MOSI
+数字12        &lt;----&gt;  MISO
+数字13        &lt;----&gt;  SCK
+VCC           &lt;----&gt; VCC
+GND           &lt;----&gt; GND
+</code></pre></div><p>飞线连接的, 真的很魔性:</p>
+<p><img src="arduino-3.3v-flash_l.jpg" alt=" 魔性飞线 "></p>
+<p>然后运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">flashrom -p serprog:dev<span style="color:#f92672">=</span>/dev/ttyUSB0:115200
+</code></pre></div><p>能够正确读取到芯片的ID, 没有继续尝试读写 flash, 相当于 HelloWorld 可以了, 说明整个环境是没什么大问题了. 而且接下来还有更头疼的问题需要处理.</p>
+<h3 id="电平转换是一个深坑">电平转换是一个深坑</h3>
+<p>由于 arduino 工作在 3.3v(算是超频工作了), 和 25q64fw 的工作电平不一致, 通俗的说就是: arduino 输出的信号可能损坏 Flash 及其周边电路, 而 Flash 输出的信号也无法被 Arduino 正确识别, 所以需要转换一下.</p>
+<p>首先需要制作一个 1.8v 的电源, 翻箱倒柜地终于找到一片 AMS1117-1.8 还可能是山寨的芯片. 配合4个电容制作了一个简单的 1.8v 供电电路, 用于给 Flash 提供工作电压.</p>
+<p>然后是4根信号线的电平转换, Arduino 输出的3个信号(SCK, CS, MOSI)需要转换成 1.8v 电平, Flash 输出的 1.8v 信号(MISO)需要转换成 3.3v. 我手上有 TI 的 <code>SN74LVC16T245</code> 电平转换芯片模块可以用来转换.</p>
+<p>但就是这个模块坑了我一大把, 按照 Datasheet 里面的说明来使用, 设置好各自的转换方向, 居然导致 Arduino 的主控发烫? 要么就是 Flash 发烫. 使用万用表测试转换模块的输入端, 居然是低电平??!! 这就真的很迷了, 不应该是高阻态吗?</p>
+<p>这个模块混乱的输入问题让我不敢继续使用, 买来第一次使用就跪, 没时间折腾它. 一共才4根信号线而已, 自己 DIY 一个吧.</p>
+<h3 id="失败的-diy">失败的 DIY</h3>
+<p>使用下面的电路转换电平, 电脑上已经没有 EDA 软件了, 所以画电路图只好用 OneNote 手绘了一下将就看看吧.</p>
+<p><img src="voltage-shifter_l.jpg" alt="电平转换"></p>
+<p>图一用来将 MOSI, SCK, CS 转换成 1.8v 信号电平, 使用两个电阻分压, 经过计算和选择合适的电阻, 使输出的电压在 1.8v 以下.</p>
+<p>图二用来将 MISO 信号转换成 3.3v 电平. 使用两个 NPN 三极管和4个 1kΩ 的电阻.</p>
+<p>再来感受一下魔性的飞线焊接:</p>
+<p><img src="Magic-wire-1_l.jpg" alt="魔性"></p>
+<p>主要是懒不想认真布线+不敢用面包板, 想自己用了快10年电络铁了, 最近几年没怎么用技能严重倒退&hellip;</p>
+<p>然后, 把转换后的信号线连接到平板的 DEBUG 焊盘:</p>
+<p><img src="wire-to-debug-pad-1_l.jpg" alt="飞线连接"></p>
+<h3 id="失败">失败</h3>
+<p>连接好后, 使用 flashrom 尝试读取 chip ID, 失败, 没有检测到 Flash. 之后各种折腾, 修改, 还是不行, 只能接受现实: 要么电平转换电路太渣, SPI 速度太高导致通信失败, 要么根本不能 &ldquo;在线&rdquo; 烧写, 需要取下来.</p>
+<p>然后去本地的电子商场, 询问了不少卖家都没有找到合适的电平转换模块, 有一个热心的卖家倒是愿意帮我试试焊接下来编程, 然而他的编程器根本不支持这些新的 1.8v Flash.</p>
+<p>又去旁边的电脑城, 找了不少维修点, 希望能帮忙刷一下 BIOS, 然而没有人接这个活, 称做不了/没有合适的编程器. 估计太麻烦而且 <del>不赚钱</del> 不好收费.</p>
+<p>放弃治疗, 准备回家, 结果下雨了, 被困在电子商城. 无聊之中看 flashrom 官网发现有 Raspberry Pi 这个页面. 对啊, RPI 也有标准的 SPI 接口, 而且还能自己定义 SPI 的速度, 也许我可以尝试自己 DIY 的山寨电平转换电路 + 低一点的 SPI 速度.</p>
+<hr>
+<h2 id="0x03-树莓派救砖">0x03 树莓派救砖</h2>
+<p>由于 SPI 总线没有标准的时钟速率, 全看 host 的 sck 信号, 所以可以使用 flashrom 操作 SPI 设备, 通过较低的 SPI 速度来烧录.</p>
+<h3 id="启用-spi-支持">启用 SPI 支持</h3>
+<p>我使用的是 Arch Linux ARM, 只需要修改 <code>config.txt</code>, 添加一行:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">device_tree_param=spi=on
+</code></pre></div><p>重启后, <code>ls -l /dev/spidev*</code> 可以看到设备就 OK.</p>
+<h3 id="连接-flash">连接 Flash</h3>
+<p>还是先使用U盾的 Flash 测试.</p>
+<p>树莓派的40针接口有一个焊盘是正方形的, 那就是 pin1, pin1 旁边靠近板子边缘的 pin 是第2脚, 具体可以参考树莓派官方的文档.</p>
+<p>这里有一张网上的参考图, 具体来源我忘了, 如果侵犯了您的版权请联系我删除.</p>
+<p><img src="rpi-pinmap_l.jpg" alt="树莓派 PinMap"></p>
+<p>红框中就是我们需要用到的 SPI 引脚:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">树莓派引脚号  Flash芯片的引脚
+25                GND
+24                CS
+23                SCK
+21                DO/MISO
+19                DI/MOSI
+17                VCC + RESET + WP
+</code></pre></div><p>一些注意事项:</p>
+<ul>
+<li><strong>树莓派的IO口电压不能超过3.3V !!!</strong>, 连接时一定小心, 不要把 3.3V 排针边上的 5V 接进去了, 不然可能损坏树莓派.</li>
+<li>我不太清楚这个 3.3v 是从树莓派的哪里来的, 和哪些电路连接, 但是我在连接时, 由于电源转换板有 100μF 的电容器, 树莓派直接死机. 所以建议在连接 Flash 之前先关闭树莓派的电源, 接好后再开机.</li>
+</ul>
+<h3 id="测试">测试</h3>
+<p>默认的, 要操作 SPI 设备需要 root 权限, 所以下面的命令需要 <code>sudo</code> 运行或者 <code>su</code> 提权后执行.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 使用 1MHz 的 SPI 速度, spispeed=xxx KHz</span>
+flashrom -p linux_spi:dev<span style="color:#f92672">=</span>/dev/spidev0.0,spispeed<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>
+</code></pre></div><p>可以读取到 Flash 的 ID!</p>
+<p>尝试降低 SPI 速率</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=10</span>
+flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
+Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
+<span style="color:#f92672">===</span>
+This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
+The test status of this chip may have been updated in the latest development
+version of flashrom. If you are running the latest development version,
+please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
+work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
+file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
+which mainboard or programmer you tested in the subject line.
+Thanks <span style="color:#66d9ef">for</span> your help!
+No operations were specified.
+</code></pre></div><p>比较一下不同 SPI 速度下的操作速度:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># perform a read test @ 1MHz</span>
+
+<span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=1000 -r n25s80.bin</span>
+flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
+Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
+<span style="color:#f92672">===</span>
+This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
+The test status of this chip may have been updated in the latest development
+version of flashrom. If you are running the latest development version,
+please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
+work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
+file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
+which mainboard or programmer you tested in the subject line.
+Thanks <span style="color:#66d9ef">for</span> your help!
+Reading flash... <span style="color:#66d9ef">done</span>.
+
+real    0m9.088s
+user    0m0.138s
+sys     0m0.052s
+
+
+<span style="color:#75715e">#  perform a read test @ 100KHz</span>
+
+<span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100 -r n25s80-100kHz.bin</span>
+flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
+Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
+<span style="color:#f92672">===</span>
+This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
+The test status of this chip may have been updated in the latest development
+version of flashrom. If you are running the latest development version,
+please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
+work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
+file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
+which mainboard or programmer you tested in the subject line.
+Thanks <span style="color:#66d9ef">for</span> your help!
+Reading flash... <span style="color:#66d9ef">done</span>.
+
+real    1m24.410s
+user    0m0.097s
+sys     0m0.116s
+
+</code></pre></div><h3 id="连上坏平板再测试">连上坏平板再测试</h3>
+<p>这次的电平转换电路又缩水了, 3.3 -&gt; 1.8v 直接用了一个 600Ω 的电阻串一下:</p>
+<p><img src="rpi-to-pad_l.jpg" alt=" "></p>
+<p>谢天谢地, 读取到了!!!!!
+果然速度无法太高!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100
+flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+No operations were specified.
+
+[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=1000
+flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+No EEPROM/flash device found.
+Note: flashrom can never write if the flash chip isn&#39;t found automatically.
+</code></pre></div><p>经过多次测试, SPI 时钟在 600KHz 时能正常读写, 再高就不稳定了. 都是自己的垃圾电平转换的锅.</p>
+<hr>
+<h2 id="0x04-正式开工">0x04 正式开工</h2>
+<h3 id="备份-bios">备份 BIOS</h3>
+<p>我分别用低一点的速度(100KHz)和能使用的最高速度(600KHz)备份了一下 Flash.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -r xxx-bad-bios-600khz.bin
+flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+Reading flash... done.
+
+real    1m53.725s
+user    0m0.145s
+sys     0m0.421s
+
+
+[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100 -r xxx-bad-bios-100khz.bin
+flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+Reading flash... done.
+
+real    11m13.411s
+user    0m0.132s
+sys     0m0.543s
+</code></pre></div><p>然后 <code>sha1sum</code> 比较了一下, 一样的, 那么后续操作中可以使用600KHz的速度了, 不然刷写一下半小时简直难受.</p>
+<h3 id="刷新的-bios">刷新的 BIOS</h3>
+<p>这里有一个严重问题, 网上下载的 bios <code>.rom</code> 文件真的只有 UEFI BIOS 部分, 而 Flash 里面还有 Intel ME 等固件, 不能直接写入 <code>.rom</code> 文件. 需要做一下处理, 下个章节在讨论这个问题, 这里我烧录了处理后的 Flash 文件:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -w xxx-good-bios-replaced-full-flash.bin
+flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+Reading old flash chip contents... done.
+Erasing and writing flash chip... Erase/write done.
+Verifying flash... VERIFIED.
+
+real    3m57.244s
+user    0m4.839s
+sys     0m1.081s
+</code></pre></div><p>花了几分钟, 终于成功写入BIOS, 然后, 断开 SPI DO 数据线和 1.8V, 长按开机, 没反应&hellip; 慌了&hellip;</p>
+<p>撤掉所有SPI数据线, 长按, 还是没反应&hellip; 内心相当慌张&hellip;</p>
+<p>抱着司马当活马医的心态, 长按电源键, 连接电源, 10多秒了还是没反应, 就在准备放弃时, 它居然亮了, 亮了!!!</p>
+<p>不仅亮了, 连Bitlocker自动解锁都没有受到影响!  <strong>Bitlocker还安全吗, 我都动BIOS了</strong>&hellip;</p>
+<h3 id="后续">后续</h3>
+<ul>
+<li>
+<p>启动后, 发现设备管理器里面多了几个设备, 估计是 GPS 的, 难道国外的月亮更圆, 出口版带 GPS ?
+-&gt; 解决方法: 进入 BIOS, 恢复出厂设置, 这几个不存在设备应该被 BIOS 禁用了, 或者可以手动禁用, 启动后就没了.</p>
+</li>
+<li>
+<p>发现麦克风设备不见了, Windows 显示没有安装麦克风
+-&gt; 解决方案: 卸载 SST Audio Device 和 Codec 设备, 重新扫描, OK.</p>
+</li>
+<li>
+<p>偶尔无法烧录:
+-&gt; 连接好线关闭rpi电源再开机</p>
+</li>
+<li>
+<p>弄好后不知道为什么自动重启了一次, 在计算机睡眠时, 不是 Windows 蓝屏导致的. 无奈, 只好先观察.</p>
+</li>
+</ul>
+<hr>
+<h2 id="0xff-修改-raw-flash-image">0xff 修改 Raw Flash Image</h2>
+<p>&ldquo;Raw Flash Image&rdquo; 是我自己随便取的名字, 就是直接读取的 Flash 芯片里面的全部内容.</p>
+<p>使用网友分享的 BIOS <code>.rom</code> 并不能写入, 毕竟文件不一样大, 而且我自己使用二进制比较工具比较过, <code>.rom</code> 的内容位于 &ldquo;Raw Flash Image&rdquo; 文件的中间, 直接写入肯定是不可以的, 而且 flashrom 网站上也说了, ME firmware 一般会共享一部分 Flash 空间.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -w xxx.rom
+flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+flashrom is free software, get the source code at https://flashrom.org
+
+Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+Error: Image size (4325376 B) doesn&#39;t match the flash chip&#39;s size (8388608 B)!
+</code></pre></div><hr>
+<p>使用 UEFITool 修改镜像, 也是自己运气好, 直接 Google <code>UEFI Mod Tool</code> 就发现了 <a href="https://github.com/LongSoft/UEFITool">UEFITool</a> 这个工具, 用这个工具打开两个文件就一目了然了:</p>
+<p><img src="uefitool_l.jpg" alt="Open Image"></p>
+<p>上面是 &ldquo;Raw Flash Image&rdquo; , 下面是 <code>.rom</code> 文件.</p>
+<p>接下来对备份出来的 Flash 镜像进行操作, 右键点击 <code>BIOS region</code>, 选择替换, 替换为网友上传的 <code>.rom</code> 文件, 保存映像文件即可.</p>
+<p>烧录进去就OK了.</p>
+<hr>
+<h3 id="继续作si">继续作si</h3>
+<p>想把厂家丑到爆的 Logo 替换了. Ctrl + F 搜索 <code>7BB28B99-61BB-11D5-9A5D-0090273FC14D</code> 这个GUID, 一路展开, 定位到 <code>raw section</code>, 右键 <code>extract body</code>, 把导出的文件改名 jpg, 这不就是厂家丑爆的 logo 吗, 还是 Windows 画图做的&hellip;
+选择 <code>raw section</code> 的 <code>replace body</code>, 使用自己修改后的原图, 保存Image, 烧录进去, 无法启动. Boom,,, 重新烧录原厂Logo的BIOS, OK. 看来丑爆的 Logo 是甩不掉了, Linux 还能少看一会儿, 并且能替换自己喜欢的图片, Windows启动就只能看这丑爆的图了.</p>
+<p>因为我自己也没替换开机 Logo 成功, 就不多说了, 反正不影响, 最近比较忙就暂时不折腾了.</p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/raspberry-pi/" rel="tag">raspberry pi</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/flashrom/" rel="tag">flashrom</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/arduino/" rel="tag">arduino</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Miguel X avatar" src="/res/avatar.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">关于 Miguel X</span>
+	</div>
+	<div class="authorbox__description">
+		一位经历中年危机中的 90 后&hellip;
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/set-windows-wallpaper-via-python/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;上一篇</span>
+			<p class="pager__title">使用 Python 来修改 Windows 桌面壁纸</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/refresh-my-blog/" rel="next">
+			<span class="pager__subtitle">下一篇&thinsp;»</span>
+			<p class="pager__title">翻新博客 (继续使用 hugo)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="搜索…" value="" name="q" aria-label="搜索…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/modern-standby-device-not-go-to-drips-after-reinstall-windows/">重装 Windows 系统后连接待机/现代待机设备无法进入 DRIPS 的处理(DisableInboxPepGeneratedConstraints)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/refresh-my-blog/">翻新博客 (继续使用 hugo)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-raspberrypi-to-fix-brick-tablet/">使用树莓派给变砖平板刷回 BIOS</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/set-windows-wallpaper-via-python/">使用 Python 来修改 Windows 桌面壁纸</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blog/">blog</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hardware/">hardware</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/windows/">Windows</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">代码片段</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/arduino/" title="arduino">arduino (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="blog">blog (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/flashrom/" title="flashrom">flashrom (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hugo/" title="hugo">hugo (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/raspberry-pi/" title="raspberry pi">raspberry pi (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/windows/" title="Windows">Windows (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/windows-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/" title="Windows 电源管理">Windows 电源管理 (1)</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社交</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/dot-osk" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:x@migueltek.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>x@migueltek.com</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+<div class="footer__links">
+	<a class="footer__link" href="/about/">联系我</a>
+</div>
+		<div class="footer__copyright">
+			&copy; 2021 MiguelTek.com.
+			<span class="footer__copyright-credits">基于 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 引擎和 <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> 主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/res/js/custom.js"></script></body>
+</html>
