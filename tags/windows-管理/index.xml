@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows 管理 on Miguel&#39;s Pages</title>
+    <link>/tags/windows-%E7%AE%A1%E7%90%86/</link>
+    <description>Recent content in Windows 管理 on Miguel&#39;s Pages</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 25 Sep 2021 12:14:23 +0800</lastBuildDate><atom:link href="/tags/windows-%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>生成更长有效期的 RDP SSL 自签名证书</title>
+      <link>/posts/create-self-signed-cert-for-remote-desktop/</link>
+      <pubDate>Sat, 25 Sep 2021 12:14:23 +0800</pubDate>
+      
+      <guid>/posts/create-self-signed-cert-for-remote-desktop/</guid>
+      <description>&lt;p&gt;默认的 RDP 自签名证书有效期只有半年, 对于我来说太短, 一旦过期, 连接 rdp 时提示证书不受信任的警告就很烦恼, 信任或不信任都麻烦.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

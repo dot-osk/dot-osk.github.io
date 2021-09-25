@@ -6,7 +6,16 @@
     <description>Recent content on Miguel&#39;s Pages</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 23 Aug 2021 16:14:43 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Sep 2021 12:14:23 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>生成更长有效期的 RDP SSL 自签名证书</title>
+      <link>/posts/create-self-signed-cert-for-remote-desktop/</link>
+      <pubDate>Sat, 25 Sep 2021 12:14:23 +0800</pubDate>
+      
+      <guid>/posts/create-self-signed-cert-for-remote-desktop/</guid>
+      <description>&lt;p&gt;默认的 RDP 自签名证书有效期只有半年, 对于我来说太短, 一旦过期, 连接 rdp 时提示证书不受信任的警告就很烦恼, 信任或不信任都麻烦.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>重装 Windows 系统后连接待机/现代待机设备无法进入 DRIPS 的处理(DisableInboxPepGeneratedConstraints)</title>
       <link>/posts/modern-standby-device-not-go-to-drips-after-reinstall-windows/</link>
