@@ -61,6 +61,13 @@
 				
 			</a>
 		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/simple-edid-editor-for-win-11/">
+				
+				<span class="menu__text">Tool: EDID Editor</span>
+				
+			</a>
+		</li>
 	</ul>
 </nav>
 
@@ -149,14 +156,14 @@
 <p>接下来是拆机, 这没什么好说的, 拿塑料卡片沿着缝隙走一圈就打开了, 拆下用于散热的屏蔽罩(功能还真多&hellip;), 就能看到典型的8脚 Nor Flash 芯片了. 这类 BIOS 芯片一般是 SPI 接口的, 我的平板使用的是 Winbond 的 <code>25Q64FWIG</code>, 厂家还预留了测试用的焊盘, 如果不出意外, 这将大大方便了我的修复操作, 因为不用自己在引脚焊盘上焊接飞线.</p>
 <p><img src="spi-flash-chip_l.jpg" alt="SPI Flash 和测试焊盘"></p>
 <p>在 Winbond 官方找到了芯片的 <a href="http://www.winbond.com/resource-files/w25q64fw%20revn%2005182017%20sfdp.pdf">DataSheet</a>, 根据数据表, 提一些需要的信息:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">W25Q64FW
-
-64M-bit 1.8V Serial Flash Memory with uniform 4KB sectors and Dual/Quad SPI and QPI
-
-    Single/Dual/Quad SPI and QPI operation
-    1.65 to 1.95V power supply
-    4mA active read current, 1µA power down current
-</code></pre></div><p>以及最重要的引脚功能说明:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W25Q64FW
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>64M-bit 1.8V Serial Flash Memory with uniform 4KB sectors and Dual/Quad SPI and QPI
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Single/Dual/Quad SPI and QPI operation
+</span></span><span style="display:flex;"><span>    1.65 to 1.95V power supply
+</span></span><span style="display:flex;"><span>    4mA active read current, 1µA power down current
+</span></span></code></pre></div><p>以及最重要的引脚功能说明:</p>
 <p><img src="25q64-ds.png" alt=" 25Q64 DS "></p>
 <p>其实, 引脚信息也不太重要, 因为一般都是这个引脚排列.</p>
 <h3 id="确认-debug-焊盘和-flash-引脚的对应关系">确认 DEBUG 焊盘和 Flash 引脚的对应关系</h3>
@@ -179,36 +186,36 @@
 <h3 id="frser-duino">frser-duino</h3>
 <p><a href="https://github.com/urjaman/frser-duino">frser-duino</a> 是烧录到 Arduino 板子上的固件, 用于和主机/上位机的 flashrom 配合完成对 Flash 的读写和擦除等操作.另外一个类似的固件: serprog-duino, 但建议使用frser-duino.</p>
 <p>先使用 ftdi 模式试试,这种方式是 USB-to-Serial 串口来连接 Arduino 板子时使用的模式.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git clone  --recurse-submodules -j2 https://github.com/urjaman/frser-duino
-
-<span style="color:#75715e"># 编辑Makefile, 看下哪些参数需要修改下:</span>
-<span style="color:#75715e"># MMCU?=atmega328p 正确, 其他芯片的arduino需要修改make的命令行参数传递进去</span>
-
-<span style="color:#75715e"># 生成 arduino 固件</span>
-make ftdi
-<span style="color:#75715e"># 下载固件到 arduino 板子上</span>
-make flash-ftdi
-</code></pre></div><p>注意: 用户需要是uucp组的才能访问 ttyUSB0 设备.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone  --recurse-submodules -j2 https://github.com/urjaman/frser-duino
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 编辑Makefile, 看下哪些参数需要修改下:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># MMCU?=atmega328p 正确, 其他芯片的arduino需要修改make的命令行参数传递进去</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 生成 arduino 固件</span>
+</span></span><span style="display:flex;"><span>make ftdi
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 下载固件到 arduino 板子上</span>
+</span></span><span style="display:flex;"><span>make flash-ftdi
+</span></span></code></pre></div><p>注意: 用户需要是uucp组的才能访问 ttyUSB0 设备.</p>
 <p>如果下载失败, 可能是串口速度没正确, 默认的速率是57600, 需要修改下 Makefile:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-patch" data-lang="patch">flash-ftdi:
-<span style="color:#f92672">-       BLBAUD=57600 SERIAL_DEV=/dev/ttyUSB0 $(MAKE) program
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+       SERIAL_DEV=/dev/ttyUSB0 $(MAKE) program
-</span></code></pre></div><p>这里我又想吐槽微软了, 现在是8102年了 Hyper-V 还是不支持 USB 重定向, 连串口重定向也没有? 要实现需要使用一些第三方的工具. 幸好我的 ArchLinux 可以在虚拟机和物理机两种运行状态下直接切换, 重启到 ArchLinux 里面再次运行 <code>make flash-ftdi</code> 下载固件成功.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-patch" data-lang="patch"><span style="display:flex;"><span>flash-ftdi:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-       BLBAUD=57600 SERIAL_DEV=/dev/ttyUSB0 $(MAKE) program
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+       SERIAL_DEV=/dev/ttyUSB0 $(MAKE) program
+</span></span></span></code></pre></div><p>这里我又想吐槽微软了, 现在是8102年了 Hyper-V 还是不支持 USB 重定向, 连串口重定向也没有? 要实现需要使用一些第三方的工具. 幸好我的 ArchLinux 可以在虚拟机和物理机两种运行状态下直接切换, 重启到 ArchLinux 里面再次运行 <code>make flash-ftdi</code> 下载固件成功.</p>
 <h2 id="0x02-折腾-真的很折腾">0x02 折腾, 真的很折腾</h2>
 <p>万事俱备, 只欠东风. 首先找了个坏U盾上的 Flash, 3.3v的芯片, 将 Arduino pro mini 的供电调成 3.3v, 照下面的连线方式连接:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Arduino引脚编号     SPI Flash的引脚
-
-数字10        &lt;----&gt;  CS
-数字11        &lt;----&gt;  MOSI
-数字12        &lt;----&gt;  MISO
-数字13        &lt;----&gt;  SCK
-VCC           &lt;----&gt; VCC
-GND           &lt;----&gt; GND
-</code></pre></div><p>飞线连接的, 真的很魔性:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Arduino引脚编号     SPI Flash的引脚
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>数字10        &lt;----&gt;  CS
+</span></span><span style="display:flex;"><span>数字11        &lt;----&gt;  MOSI
+</span></span><span style="display:flex;"><span>数字12        &lt;----&gt;  MISO
+</span></span><span style="display:flex;"><span>数字13        &lt;----&gt;  SCK
+</span></span><span style="display:flex;"><span>VCC           &lt;----&gt; VCC
+</span></span><span style="display:flex;"><span>GND           &lt;----&gt; GND
+</span></span></code></pre></div><p>飞线连接的, 真的很魔性:</p>
 <p><img src="arduino-3.3v-flash_l.jpg" alt=" 魔性飞线 "></p>
 <p>然后运行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">flashrom -p serprog:dev<span style="color:#f92672">=</span>/dev/ttyUSB0:115200
-</code></pre></div><p>能够正确读取到芯片的ID, 没有继续尝试读写 flash, 相当于 HelloWorld 可以了, 说明整个环境是没什么大问题了. 而且接下来还有更头疼的问题需要处理.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>flashrom -p serprog:dev<span style="color:#f92672">=</span>/dev/ttyUSB0:115200
+</span></span></code></pre></div><p>能够正确读取到芯片的ID, 没有继续尝试读写 flash, 相当于 HelloWorld 可以了, 说明整个环境是没什么大问题了. 而且接下来还有更头疼的问题需要处理.</p>
 <h3 id="电平转换是一个深坑">电平转换是一个深坑</h3>
 <p>由于 arduino 工作在 3.3v(算是超频工作了), 和 25q64fw 的工作电平不一致, 通俗的说就是: arduino 输出的信号可能损坏 Flash 及其周边电路, 而 Flash 输出的信号也无法被 Arduino 正确识别, 所以需要转换一下.</p>
 <p>首先需要制作一个 1.8v 的电源, 翻箱倒柜地终于找到一片 AMS1117-1.8 还可能是山寨的芯片. 配合4个电容制作了一个简单的 1.8v 供电电路, 用于给 Flash 提供工作电压.</p>
@@ -235,162 +242,161 @@ GND           &lt;----&gt; GND
 <p>由于 SPI 总线没有标准的时钟速率, 全看 host 的 sck 信号, 所以可以使用 flashrom 操作 SPI 设备, 通过较低的 SPI 速度来烧录.</p>
 <h3 id="启用-spi-支持">启用 SPI 支持</h3>
 <p>我使用的是 Arch Linux ARM, 只需要修改 <code>config.txt</code>, 添加一行:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">device_tree_param=spi=on
-</code></pre></div><p>重启后, <code>ls -l /dev/spidev*</code> 可以看到设备就 OK.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>device_tree_param=spi=on
+</span></span></code></pre></div><p>重启后, <code>ls -l /dev/spidev*</code> 可以看到设备就 OK.</p>
 <h3 id="连接-flash">连接 Flash</h3>
 <p>还是先使用U盾的 Flash 测试.</p>
 <p>树莓派的40针接口有一个焊盘是正方形的, 那就是 pin1, pin1 旁边靠近板子边缘的 pin 是第2脚, 具体可以参考树莓派官方的文档.</p>
 <p>这里有一张网上的参考图, 具体来源我忘了, 如果侵犯了您的版权请联系我删除.</p>
 <p><img src="rpi-pinmap_l.jpg" alt="树莓派 PinMap"></p>
 <p>红框中就是我们需要用到的 SPI 引脚:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">树莓派引脚号  Flash芯片的引脚
-25                GND
-24                CS
-23                SCK
-21                DO/MISO
-19                DI/MOSI
-17                VCC + RESET + WP
-</code></pre></div><p>一些注意事项:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>树莓派引脚号  Flash芯片的引脚
+</span></span><span style="display:flex;"><span>25                GND
+</span></span><span style="display:flex;"><span>24                CS
+</span></span><span style="display:flex;"><span>23                SCK
+</span></span><span style="display:flex;"><span>21                DO/MISO
+</span></span><span style="display:flex;"><span>19                DI/MOSI
+</span></span><span style="display:flex;"><span>17                VCC + RESET + WP
+</span></span></code></pre></div><p>一些注意事项:</p>
 <ul>
 <li><strong>树莓派的IO口电压不能超过3.3V !!!</strong>, 连接时一定小心, 不要把 3.3V 排针边上的 5V 接进去了, 不然可能损坏树莓派.</li>
 <li>我不太清楚这个 3.3v 是从树莓派的哪里来的, 和哪些电路连接, 但是我在连接时, 由于电源转换板有 100μF 的电容器, 树莓派直接死机. 所以建议在连接 Flash 之前先关闭树莓派的电源, 接好后再开机.</li>
 </ul>
 <h3 id="测试">测试</h3>
 <p>默认的, 要操作 SPI 设备需要 root 权限, 所以下面的命令需要 <code>sudo</code> 运行或者 <code>su</code> 提权后执行.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 使用 1MHz 的 SPI 速度, spispeed=xxx KHz</span>
-flashrom -p linux_spi:dev<span style="color:#f92672">=</span>/dev/spidev0.0,spispeed<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>
-</code></pre></div><p>可以读取到 Flash 的 ID!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 使用 1MHz 的 SPI 速度, spispeed=xxx KHz</span>
+</span></span><span style="display:flex;"><span>flashrom -p linux_spi:dev<span style="color:#f92672">=</span>/dev/spidev0.0,spispeed<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>
+</span></span></code></pre></div><p>可以读取到 Flash 的 ID!</p>
 <p>尝试降低 SPI 速率</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=10</span>
-flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
-Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
-<span style="color:#f92672">===</span>
-This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
-The test status of this chip may have been updated in the latest development
-version of flashrom. If you are running the latest development version,
-please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
-work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
-file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
-which mainboard or programmer you tested in the subject line.
-Thanks <span style="color:#66d9ef">for</span> your help!
-No operations were specified.
-</code></pre></div><p>比较一下不同 SPI 速度下的操作速度:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># perform a read test @ 1MHz</span>
-
-<span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=1000 -r n25s80.bin</span>
-flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
-Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
-<span style="color:#f92672">===</span>
-This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
-The test status of this chip may have been updated in the latest development
-version of flashrom. If you are running the latest development version,
-please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
-work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
-file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
-which mainboard or programmer you tested in the subject line.
-Thanks <span style="color:#66d9ef">for</span> your help!
-Reading flash... <span style="color:#66d9ef">done</span>.
-
-real    0m9.088s
-user    0m0.138s
-sys     0m0.052s
-
-
-<span style="color:#75715e">#  perform a read test @ 100KHz</span>
-
-<span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100 -r n25s80-100kHz.bin</span>
-flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
-Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
-<span style="color:#f92672">===</span>
-This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
-The test status of this chip may have been updated in the latest development
-version of flashrom. If you are running the latest development version,
-please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
-work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
-file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
-which mainboard or programmer you tested in the subject line.
-Thanks <span style="color:#66d9ef">for</span> your help!
-Reading flash... <span style="color:#66d9ef">done</span>.
-
-real    1m24.410s
-user    0m0.097s
-sys     0m0.116s
-
-</code></pre></div><h3 id="连上坏平板再测试">连上坏平板再测试</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=10</span>
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span>
+</span></span><span style="display:flex;"><span>This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
+</span></span><span style="display:flex;"><span>The test status of this chip may have been updated in the latest development
+</span></span><span style="display:flex;"><span>version of flashrom. If you are running the latest development version,
+</span></span><span style="display:flex;"><span>please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
+</span></span><span style="display:flex;"><span>work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
+</span></span><span style="display:flex;"><span>file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
+</span></span><span style="display:flex;"><span>which mainboard or programmer you tested in the subject line.
+</span></span><span style="display:flex;"><span>Thanks <span style="color:#66d9ef">for</span> your help!
+</span></span><span style="display:flex;"><span>No operations were specified.
+</span></span></code></pre></div><p>比较一下不同 SPI 速度下的操作速度:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># perform a read test @ 1MHz</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=1000 -r n25s80.bin</span>
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span>
+</span></span><span style="display:flex;"><span>This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
+</span></span><span style="display:flex;"><span>The test status of this chip may have been updated in the latest development
+</span></span><span style="display:flex;"><span>version of flashrom. If you are running the latest development version,
+</span></span><span style="display:flex;"><span>please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
+</span></span><span style="display:flex;"><span>work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
+</span></span><span style="display:flex;"><span>file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
+</span></span><span style="display:flex;"><span>which mainboard or programmer you tested in the subject line.
+</span></span><span style="display:flex;"><span>Thanks <span style="color:#66d9ef">for</span> your help!
+</span></span><span style="display:flex;"><span>Reading flash... <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>real    0m9.088s
+</span></span><span style="display:flex;"><span>user    0m0.138s
+</span></span><span style="display:flex;"><span>sys     0m0.052s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  perform a read test @ 100KHz</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@alarmpi ~<span style="color:#f92672">]</span><span style="color:#75715e"># time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100 -r n25s80-100kHz.bin</span>
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH <span style="color:#f92672">(</span>armv7l<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime <span style="color:#66d9ef">for</span> delay loops <span style="color:#f92672">(</span>clk_id: 1, resolution: 1ns<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Found Nantronics flash chip <span style="color:#e6db74">&#34;N25S80&#34;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1024</span> kB, SPI<span style="color:#f92672">)</span> on linux_spi.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span>
+</span></span><span style="display:flex;"><span>This flash part has status UNTESTED <span style="color:#66d9ef">for</span> operations: PROBE READ ERASE WRITE
+</span></span><span style="display:flex;"><span>The test status of this chip may have been updated in the latest development
+</span></span><span style="display:flex;"><span>version of flashrom. If you are running the latest development version,
+</span></span><span style="display:flex;"><span>please email a report to flashrom@flashrom.org <span style="color:#66d9ef">if</span> any of the above operations
+</span></span><span style="display:flex;"><span>work correctly <span style="color:#66d9ef">for</span> you with this flash chip. Please include the flashrom log
+</span></span><span style="display:flex;"><span>file <span style="color:#66d9ef">for</span> all operations you tested <span style="color:#f92672">(</span>see the man page <span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span>, and mention
+</span></span><span style="display:flex;"><span>which mainboard or programmer you tested in the subject line.
+</span></span><span style="display:flex;"><span>Thanks <span style="color:#66d9ef">for</span> your help!
+</span></span><span style="display:flex;"><span>Reading flash... <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>real    1m24.410s
+</span></span><span style="display:flex;"><span>user    0m0.097s
+</span></span><span style="display:flex;"><span>sys     0m0.116s
+</span></span></code></pre></div><h3 id="连上坏平板再测试">连上坏平板再测试</h3>
 <p>这次的电平转换电路又缩水了, 3.3 -&gt; 1.8v 直接用了一个 600Ω 的电阻串一下:</p>
 <p><img src="rpi-to-pad_l.jpg" alt=" "></p>
 <p>谢天谢地, 读取到了!!!!!
 果然速度无法太高!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100
-flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
-Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
-No operations were specified.
-
-[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=1000
-flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
-No EEPROM/flash device found.
-Note: flashrom can never write if the flash chip isn&#39;t found automatically.
-</code></pre></div><p>经过多次测试, SPI 时钟在 600KHz 时能正常读写, 再高就不稳定了. 都是自己的垃圾电平转换的锅.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+</span></span><span style="display:flex;"><span>Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+</span></span><span style="display:flex;"><span>No operations were specified.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=1000
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+</span></span><span style="display:flex;"><span>No EEPROM/flash device found.
+</span></span><span style="display:flex;"><span>Note: flashrom can never write if the flash chip isn&#39;t found automatically.
+</span></span></code></pre></div><p>经过多次测试, SPI 时钟在 600KHz 时能正常读写, 再高就不稳定了. 都是自己的垃圾电平转换的锅.</p>
 <hr>
 <h2 id="0x04-正式开工">0x04 正式开工</h2>
 <h3 id="备份-bios">备份 BIOS</h3>
 <p>我分别用低一点的速度(100KHz)和能使用的最高速度(600KHz)备份了一下 Flash.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -r xxx-bad-bios-600khz.bin
-flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
-Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
-Reading flash... done.
-
-real    1m53.725s
-user    0m0.145s
-sys     0m0.421s
-
-
-[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100 -r xxx-bad-bios-100khz.bin
-flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
-Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
-Reading flash... done.
-
-real    11m13.411s
-user    0m0.132s
-sys     0m0.543s
-</code></pre></div><p>然后 <code>sha1sum</code> 比较了一下, 一样的, 那么后续操作中可以使用600KHz的速度了, 不然刷写一下半小时简直难受.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -r xxx-bad-bios-600khz.bin
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+</span></span><span style="display:flex;"><span>Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+</span></span><span style="display:flex;"><span>Reading flash... done.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>real    1m53.725s
+</span></span><span style="display:flex;"><span>user    0m0.145s
+</span></span><span style="display:flex;"><span>sys     0m0.421s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=100 -r xxx-bad-bios-100khz.bin
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+</span></span><span style="display:flex;"><span>Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+</span></span><span style="display:flex;"><span>Reading flash... done.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>real    11m13.411s
+</span></span><span style="display:flex;"><span>user    0m0.132s
+</span></span><span style="display:flex;"><span>sys     0m0.543s
+</span></span></code></pre></div><p>然后 <code>sha1sum</code> 比较了一下, 一样的, 那么后续操作中可以使用600KHz的速度了, 不然刷写一下半小时简直难受.</p>
 <h3 id="刷新的-bios">刷新的 BIOS</h3>
 <p>这里有一个严重问题, 网上下载的 bios <code>.rom</code> 文件真的只有 UEFI BIOS 部分, 而 Flash 里面还有 Intel ME 等固件, 不能直接写入 <code>.rom</code> 文件. 需要做一下处理, 下个章节在讨论这个问题, 这里我烧录了处理后的 Flash 文件:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -w xxx-good-bios-replaced-full-flash.bin
-flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
-Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
-Reading old flash chip contents... done.
-Erasing and writing flash chip... Erase/write done.
-Verifying flash... VERIFIED.
-
-real    3m57.244s
-user    0m4.839s
-sys     0m1.081s
-</code></pre></div><p>花了几分钟, 终于成功写入BIOS, 然后, 断开 SPI DO 数据线和 1.8V, 长按开机, 没反应&hellip; 慌了&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[root@alarmpi ~]# time flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -w xxx-good-bios-replaced-full-flash.bin
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+</span></span><span style="display:flex;"><span>Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+</span></span><span style="display:flex;"><span>Reading old flash chip contents... done.
+</span></span><span style="display:flex;"><span>Erasing and writing flash chip... Erase/write done.
+</span></span><span style="display:flex;"><span>Verifying flash... VERIFIED.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>real    3m57.244s
+</span></span><span style="display:flex;"><span>user    0m4.839s
+</span></span><span style="display:flex;"><span>sys     0m1.081s
+</span></span></code></pre></div><p>花了几分钟, 终于成功写入BIOS, 然后, 断开 SPI DO 数据线和 1.8V, 长按开机, 没反应&hellip; 慌了&hellip;</p>
 <p>撤掉所有SPI数据线, 长按, 还是没反应&hellip; 内心相当慌张&hellip;</p>
 <p>抱着司马当活马医的心态, 长按电源键, 连接电源, 10多秒了还是没反应, 就在准备放弃时, 它居然亮了, 亮了!!!</p>
 <p>不仅亮了, 连Bitlocker自动解锁都没有受到影响!  <strong>Bitlocker还安全吗, 我都动BIOS了</strong>&hellip;</p>
@@ -416,14 +422,14 @@ sys     0m1.081s
 <h2 id="0xff-修改-raw-flash-image">0xff 修改 Raw Flash Image</h2>
 <p>&ldquo;Raw Flash Image&rdquo; 是我自己随便取的名字, 就是直接读取的 Flash 芯片里面的全部内容.</p>
 <p>使用网友分享的 BIOS <code>.rom</code> 并不能写入, 毕竟文件不一样大, 而且我自己使用二进制比较工具比较过, <code>.rom</code> 的内容位于 &ldquo;Raw Flash Image&rdquo; 文件的中间, 直接写入肯定是不可以的, 而且 flashrom 网站上也说了, ME firmware 一般会共享一部分 Flash 空间.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -w xxx.rom
-flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
-flashrom is free software, get the source code at https://flashrom.org
-
-Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
-Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
-Error: Image size (4325376 B) doesn&#39;t match the flash chip&#39;s size (8388608 B)!
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[root@alarmpi ~]# flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=600 -w xxx.rom
+</span></span><span style="display:flex;"><span>flashrom v1.0 on Linux 4.14.52-1-ARCH (armv7l)
+</span></span><span style="display:flex;"><span>flashrom is free software, get the source code at https://flashrom.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Using clock_gettime for delay loops (clk_id: 1, resolution: 1ns).
+</span></span><span style="display:flex;"><span>Found Winbond flash chip &#34;W25Q64.W&#34; (8192 kB, SPI) on linux_spi.
+</span></span><span style="display:flex;"><span>Error: Image size (4325376 B) doesn&#39;t match the flash chip&#39;s size (8388608 B)!
+</span></span></code></pre></div><hr>
 <p>使用 UEFITool 修改镜像, 也是自己运气好, 直接 Google <code>UEFI Mod Tool</code> 就发现了 <a href="https://github.com/LongSoft/UEFITool">UEFITool</a> 这个工具, 用这个工具打开两个文件就一目了然了:</p>
 <p><img src="uefitool_l.jpg" alt="Open Image"></p>
 <p>上面是 &ldquo;Raw Flash Image&rdquo; , 下面是 <code>.rom</code> 文件.</p>
@@ -571,7 +577,7 @@ Error: Image size (4325376 B) doesn&#39;t match the flash chip&#39;s size (83886
 	<a class="footer__link" href="/about/">联系我</a>
 </div>
 		<div class="footer__copyright">
-			&copy; 2021 MiguelTek.com.
+			&copy; 2022 MiguelTek.com.
 			<span class="footer__copyright-credits">基于 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 引擎和 <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> 主题</span>
 		</div>
 	</div>

@@ -61,6 +61,13 @@
 				
 			</a>
 		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/simple-edid-editor-for-win-11/">
+				
+				<span class="menu__text">Tool: EDID Editor</span>
+				
+			</a>
+		</li>
 	</ul>
 </nav>
 
@@ -102,66 +109,66 @@
 <li>不要指定字符集, 默认使用unicode将导致程序异常</li>
 <li>VC++ 代码生成： /mt 静态链接, 避免其他系统对 VC Runtime 的依赖</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdafx.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> argv[])
-{
-  <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>)
-  {
-    <span style="color:#66d9ef">return</span>(<span style="color:#ae81ff">1</span>);
-  }
-
-  cout <span style="color:#f92672">&lt;&lt;</span> argv[<span style="color:#ae81ff">1</span>];
-  SystemParametersInfo(
-    SPI_SETDESKWALLPAPER,
-    <span style="color:#ae81ff">0</span>,
-    argv[<span style="color:#ae81ff">1</span>],
-    SPIF_UPDATEINIFILE
-  );
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>使用方法也很简单, 直接将图片的路径作为生成的程序的第一个参数即可, 或者直接将图片拖到生成的 exe 上面.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdafx.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> argv[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> argv[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>  SystemParametersInfo(
+</span></span><span style="display:flex;"><span>    SPI_SETDESKWALLPAPER,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    argv[<span style="color:#ae81ff">1</span>],
+</span></span><span style="display:flex;"><span>    SPIF_UPDATEINIFILE
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>使用方法也很简单, 直接将图片的路径作为生成的程序的第一个参数即可, 或者直接将图片拖到生成的 exe 上面.</p>
 <p>注意: <strong>不要传递相对路径进去!</strong></p>
 <h2 id="python-版">Python 版</h2>
 <p>由于不熟悉 C++ 编程, 上面的 Windows C++ 版本 bug 不少, 比如不支持相对路径, 传递的参数不进行检查等. 而且 python 调用 <code>os.system()</code> 来设置背景的时候, 总会有一个黑色的 conhost 一闪而过很不爽 ( 虽然可以使用 <code>subprocess</code> 来避免 ).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!python3</span>
-<span style="color:#75715e"># coding = utf-8</span>
-
-<span style="color:#f92672">import</span> ctypes
-<span style="color:#f92672">import</span> ctypes.wintypes <span style="color:#66d9ef">as</span> wintypes
-<span style="color:#f92672">import</span> os
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_windows_desktop_wallpaper</span>(fpath: str) <span style="color:#f92672">-&gt;</span> bool:
-    <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">    set Windows Desktop Wallpaper.
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">    BOOL WINAPI SystemParametersInfo(
-</span><span style="color:#e6db74">      _In_    UINT  uiAction,
-</span><span style="color:#e6db74">      _In_    UINT  uiParam,
-</span><span style="color:#e6db74">      _Inout_ PVOID pvParam,
-</span><span style="color:#e6db74">      _In_    UINT  fWinIni
-</span><span style="color:#e6db74">    )
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">    :param fpath: path to background image file.
-</span><span style="color:#e6db74">    :return:
-</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-    fpath <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>abspath(fpath)
-    SPI <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>windll<span style="color:#f92672">.</span>User32<span style="color:#f92672">.</span>SystemParametersInfoW
-    SPI_SETDESKWALLPAPER <span style="color:#f92672">=</span> wintypes<span style="color:#f92672">.</span>UINT(<span style="color:#ae81ff">0x0014</span>)
-    SPIF_UPDATEINIFILE <span style="color:#f92672">=</span> wintypes<span style="color:#f92672">.</span>UINT(<span style="color:#ae81ff">0x0001</span>)
-
-    <span style="color:#66d9ef">return</span> SPI(SPI_SETDESKWALLPAPER, <span style="color:#ae81ff">0</span>, fpath, SPIF_UPDATEINIFILE)
-
-
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
-  <span style="color:#f92672">import</span> sys
-  imgf <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>abspath(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
-  <span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(imgf):
-    set_windows_desktop_wallpaper(imgf)
-</code></pre></div><p>使用方法也很简单, 把图片拖到这个 py 文件上, 或者在其他 python 程序中 <code>import</code> 这个模块并调用 <code>set_windows_desktop_wallpaper()</code> 函数.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!python3</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># coding = utf-8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> ctypes
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> ctypes.wintypes <span style="color:#66d9ef">as</span> wintypes
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_windows_desktop_wallpaper</span>(fpath: str) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    set Windows Desktop Wallpaper.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    BOOL WINAPI SystemParametersInfo(
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      _In_    UINT  uiAction,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      _In_    UINT  uiParam,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      _Inout_ PVOID pvParam,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      _In_    UINT  fWinIni
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    )
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param fpath: path to background image file.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :return:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    fpath <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>abspath(fpath)
+</span></span><span style="display:flex;"><span>    SPI <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>windll<span style="color:#f92672">.</span>User32<span style="color:#f92672">.</span>SystemParametersInfoW
+</span></span><span style="display:flex;"><span>    SPI_SETDESKWALLPAPER <span style="color:#f92672">=</span> wintypes<span style="color:#f92672">.</span>UINT(<span style="color:#ae81ff">0x0014</span>)
+</span></span><span style="display:flex;"><span>    SPIF_UPDATEINIFILE <span style="color:#f92672">=</span> wintypes<span style="color:#f92672">.</span>UINT(<span style="color:#ae81ff">0x0001</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> SPI(SPI_SETDESKWALLPAPER, <span style="color:#ae81ff">0</span>, fpath, SPIF_UPDATEINIFILE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>  imgf <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>abspath(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(imgf):
+</span></span><span style="display:flex;"><span>    set_windows_desktop_wallpaper(imgf)
+</span></span></code></pre></div><p>使用方法也很简单, 把图片拖到这个 py 文件上, 或者在其他 python 程序中 <code>import</code> 这个模块并调用 <code>set_windows_desktop_wallpaper()</code> 函数.</p>
 <h2 id="下载">下载</h2>
 <p>我编译的 C++ 二进制程序和 python 源代码可以在这里 <a href="set-wallpaper.zip">下载</a>.</p>
 		</div>
@@ -292,7 +299,7 @@
 	<a class="footer__link" href="/about/">联系我</a>
 </div>
 		<div class="footer__copyright">
-			&copy; 2021 MiguelTek.com.
+			&copy; 2022 MiguelTek.com.
 			<span class="footer__copyright-credits">基于 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 引擎和 <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> 主题</span>
 		</div>
 	</div>

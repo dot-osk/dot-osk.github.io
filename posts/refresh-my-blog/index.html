@@ -61,6 +61,13 @@
 				
 			</a>
 		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/simple-edid-editor-for-win-11/">
+				
+				<span class="menu__text">Tool: EDID Editor</span>
+				
+			</a>
+		</li>
 	</ul>
 </nav>
 
@@ -121,127 +128,127 @@ hugo 与 hexo 一样, 都是渲染 markdown 文档, 生成一系列的静态页�
 <p>注意: <code>python-pygments</code> 包标记为可选, 但实际没啥需要了, 新版 hugo 内建了 Chroma 作为语法高亮渲染, 已经够用了, 速度也快.</p>
 </blockquote>
 <h2 id="创建站点">创建站点</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 初始化一个站点</span>
-hugo new site sitename.com
-cd sitename.com
-
-<span style="color:#75715e"># 加入版本管理</span>
-git init
-
-<span style="color:#75715e"># 添加主题</span>
-git submodule add https://github.com/vimux/mainroad themes/mainroad
-</code></pre></div><p>主题也可以在 GitHub 上面下载 zip 包解压到 <code>themes</code> 文件夹即可.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 初始化一个站点</span>
+</span></span><span style="display:flex;"><span>hugo new site sitename.com
+</span></span><span style="display:flex;"><span>cd sitename.com
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加入版本管理</span>
+</span></span><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 添加主题</span>
+</span></span><span style="display:flex;"><span>git submodule add https://github.com/vimux/mainroad themes/mainroad
+</span></span></code></pre></div><p>主题也可以在 GitHub 上面下载 zip 包解压到 <code>themes</code> 文件夹即可.</p>
 <h2 id="简单测试">简单测试</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 创建 `posts` section 和一篇博文</span>
-hugo new posts/hello-hugo/index.md
-
-<span style="color:#75715e"># 使用任意文本编辑器编辑文章内容</span>
-nano content/posts/hello-hugo/index.md
-
-<span style="color:#75715e"># 测试</span>
-hugo server -D -p <span style="color:#ae81ff">8080</span>
-</code></pre></div><p>在浏览器中访问 <code>http://127.0.0.1:8080</code> 即可测试站点是否工作.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 创建 `posts` section 和一篇博文</span>
+</span></span><span style="display:flex;"><span>hugo new posts/hello-hugo/index.md
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用任意文本编辑器编辑文章内容</span>
+</span></span><span style="display:flex;"><span>nano content/posts/hello-hugo/index.md
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 测试</span>
+</span></span><span style="display:flex;"><span>hugo server -D -p <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p>在浏览器中访问 <code>http://127.0.0.1:8080</code> 即可测试站点是否工作.</p>
 <h2 id="配置">配置</h2>
 <p>编辑 <code>config.toml</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#75715e"># 站点名称</span>
-<span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;hugo site&#34;</span>
-<span style="color:#75715e"># 站点 URL</span>
-<span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;/&#34;</span>
-<span style="color:#75715e"># 使用 themes/ 中的哪个主题, 注意大小写</span>
-<span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;mainroad&#34;</span>
-
-<span style="color:#75715e"># 中文显示配置</span>
-<span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#34;zh-cn&#34;</span>
-<span style="color:#a6e22e">DefaultContentLanguage</span> = <span style="color:#e6db74">&#34;zh-cn&#34;</span>
-<span style="color:#a6e22e">enableEmoji</span> = <span style="color:#66d9ef">true</span>
-<span style="color:#a6e22e">hasCJKLanguage</span> = <span style="color:#66d9ef">true</span>
-
-<span style="color:#75715e"># 每页显示多少条博文标题</span>
-<span style="color:#a6e22e">paginate</span> = <span style="color:#e6db74">&#34;10&#34;</span>
-
-<span style="color:#75715e"># hugo 发布设置, 发布生成的文件夹路径</span>
-<span style="color:#a6e22e">publishDir</span> = <span style="color:#e6db74">&#34;../publish&#34;</span>
-<span style="color:#75715e"># 是否清理发布文件夹中多余的文件</span>
-<span style="color:#a6e22e">cleanDestinationDir</span> = <span style="color:#66d9ef">true</span>
-
-
-<span style="color:#75715e"># 页面底部的作者信息</span>
-[<span style="color:#a6e22e">Author</span>]
-    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;姓名&#34;</span>
-    <span style="color:#a6e22e">bio</span> = <span style="color:#e6db74">&#34;简介&#34;</span>
-    <span style="color:#a6e22e">avatar</span> = <span style="color:#e6db74">&#34;/res/avatar.png&#34;</span>  <span style="color:#75715e"># logo</span>
-
-[<span style="color:#a6e22e">Params</span>]
-    <span style="color:#75715e"># 站点描述</span>
-    <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;hugo site&#34;</span>
-    <span style="color:#75715e"># 版权声明</span>
-    <span style="color:#a6e22e">copyright</span> = <span style="color:#e6db74">&#34;版权所有&#34;</span>
-    <span style="color:#a6e22e">twitter_cards</span> = <span style="color:#66d9ef">false</span>
-    <span style="color:#75715e"># 使用 继续阅读 功能</span>
-    <span style="color:#a6e22e">readmore</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#75715e"># 文章底部显示作者信息</span>
-    <span style="color:#a6e22e">authorbox</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#75715e"># 显示文章目录</span>
-    <span style="color:#a6e22e">toc</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#75715e"># 显示 上一篇/下一篇博文</span>
-    <span style="color:#a6e22e">pager</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#75715e"># 博文元数据显示配置</span>
-    <span style="color:#a6e22e">post_meta</span> = [<span style="color:#e6db74">&#34;author&#34;</span>, <span style="color:#e6db74">&#34;date&#34;</span>, <span style="color:#e6db74">&#34;categories&#34;</span>, <span style="color:#e6db74">&#34;translations&#34;</span>]
-    <span style="color:#75715e"># 主页中显示哪些</span>
-    <span style="color:#a6e22e">mainSections</span> = [<span style="color:#e6db74">&#34;posts&#34;</span>,]
-    <span style="color:#75715e"># 如果觉得 Google 字体导致网站打开太慢, 可以用其它的替代 API</span>
-    <span style="color:#a6e22e">googleFontsLink</span> = <span style="color:#e6db74">&#34;/res/font/opensans/opensans.css&#34;</span>
-    <span style="color:#75715e"># 自定义 CSS 和 JS</span>
-    <span style="color:#a6e22e">customCSS</span> = [<span style="color:#e6db74">&#34;/res/css/custom.css&#34;</span>]
-    <span style="color:#a6e22e">customJS</span> = [<span style="color:#e6db74">&#34;/res/js/custom.js&#34;</span>]
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">Logo</span>]
-    <span style="color:#a6e22e">subtitle</span> = <span style="color:#e6db74">&#34;网站子标题&#34;</span>
-    <span style="color:#75715e"># 此处可以添加网站 Logo, 显示在页面顶部</span>
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">vars</span>]
-    <span style="color:#75715e"># 页面高亮 (链接等) 颜色</span>
-    <span style="color:#a6e22e">highlightColor</span> = <span style="color:#e6db74">&#34;#2692ff&#34;</span>
-
-<span style="color:#75715e"># 使用侧边栏, 可接受: &#39;left&#39;, false, true</span>
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">sidebar</span>]
-    <span style="color:#a6e22e">home</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#a6e22e">list</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#a6e22e">single</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#a6e22e">widgets</span> = [<span style="color:#e6db74">&#34;search&#34;</span>, <span style="color:#e6db74">&#34;recent&#34;</span>, <span style="color:#e6db74">&#34;categories&#34;</span>, <span style="color:#e6db74">&#34;taglist&#34;</span>, <span style="color:#e6db74">&#34;social&#34;</span>, <span style="color:#e6db74">&#34;languages&#34;</span>, <span style="color:#e6db74">&#34;sidemenu&#34;</span>]
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">widgets</span>]
-    <span style="color:#a6e22e">recent_num</span> = <span style="color:#ae81ff">10</span> <span style="color:#75715e"># Set the number of articles in the &#34;Recent articles&#34; widget</span>
-    <span style="color:#a6e22e">categories_counter</span> = <span style="color:#66d9ef">true</span> <span style="color:#75715e"># Enable counter for each category in &#34;Categories&#34; widget</span>
-    <span style="color:#a6e22e">tags_counter</span> = <span style="color:#66d9ef">true</span> <span style="color:#75715e"># Enable counter for each tag in &#34;Tags&#34; widget</span>
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">widgets</span>.<span style="color:#a6e22e">social</span>]
-    <span style="color:#a6e22e">github</span> = <span style="color:#e6db74">&#34;github 用户名&#34;</span>
-    <span style="color:#a6e22e">email</span> = <span style="color:#e6db74">&#34;邮件地址&#34;</span>
-
-<span style="color:#75715e"># 在顶部添加菜单栏, weight 决定显示顺序</span>
-[<span style="color:#a6e22e">menu</span>]
-    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;posts&#34;</span>
-        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;博客文章&#34;</span>
-        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/posts/&#34;</span>
-        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">10</span>
-    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;categories&#34;</span>
-        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;所有分类&#34;</span>
-        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/categories/&#34;</span>
-        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">20</span>
-    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;tags&#34;</span>
-        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;所有标签&#34;</span>
-        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/tags/&#34;</span>
-        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">30</span>
-    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;about&#34;</span>
-        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;关于我&#34;</span>
-        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about/&#34;</span>
-        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">40</span>
-</code></pre></div><h2 id="自定义">自定义</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># 站点名称</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;hugo site&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 站点 URL</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用 themes/ 中的哪个主题, 注意大小写</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;mainroad&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 中文显示配置</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#34;zh-cn&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">DefaultContentLanguage</span> = <span style="color:#e6db74">&#34;zh-cn&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">enableEmoji</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hasCJKLanguage</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 每页显示多少条博文标题</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">paginate</span> = <span style="color:#e6db74">&#34;10&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># hugo 发布设置, 发布生成的文件夹路径</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">publishDir</span> = <span style="color:#e6db74">&#34;../publish&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 是否清理发布文件夹中多余的文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cleanDestinationDir</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 页面底部的作者信息</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Author</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;姓名&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bio</span> = <span style="color:#e6db74">&#34;简介&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">avatar</span> = <span style="color:#e6db74">&#34;/res/avatar.png&#34;</span>  <span style="color:#75715e"># logo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 站点描述</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;hugo site&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 版权声明</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">copyright</span> = <span style="color:#e6db74">&#34;版权所有&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">twitter_cards</span> = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 使用 继续阅读 功能</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readmore</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 文章底部显示作者信息</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">authorbox</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 显示文章目录</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">toc</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 显示 上一篇/下一篇博文</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pager</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 博文元数据显示配置</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">post_meta</span> = [<span style="color:#e6db74">&#34;author&#34;</span>, <span style="color:#e6db74">&#34;date&#34;</span>, <span style="color:#e6db74">&#34;categories&#34;</span>, <span style="color:#e6db74">&#34;translations&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 主页中显示哪些</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mainSections</span> = [<span style="color:#e6db74">&#34;posts&#34;</span>,]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 如果觉得 Google 字体导致网站打开太慢, 可以用其它的替代 API</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">googleFontsLink</span> = <span style="color:#e6db74">&#34;/res/font/opensans/opensans.css&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 自定义 CSS 和 JS</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">customCSS</span> = [<span style="color:#e6db74">&#34;/res/css/custom.css&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">customJS</span> = [<span style="color:#e6db74">&#34;/res/js/custom.js&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">Logo</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">subtitle</span> = <span style="color:#e6db74">&#34;网站子标题&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 此处可以添加网站 Logo, 显示在页面顶部</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">vars</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 页面高亮 (链接等) 颜色</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">highlightColor</span> = <span style="color:#e6db74">&#34;#2692ff&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用侧边栏, 可接受: &#39;left&#39;, false, true</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">sidebar</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">home</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">single</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">widgets</span> = [<span style="color:#e6db74">&#34;search&#34;</span>, <span style="color:#e6db74">&#34;recent&#34;</span>, <span style="color:#e6db74">&#34;categories&#34;</span>, <span style="color:#e6db74">&#34;taglist&#34;</span>, <span style="color:#e6db74">&#34;social&#34;</span>, <span style="color:#e6db74">&#34;languages&#34;</span>, <span style="color:#e6db74">&#34;sidemenu&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">widgets</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">recent_num</span> = <span style="color:#ae81ff">10</span> <span style="color:#75715e"># Set the number of articles in the &#34;Recent articles&#34; widget</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">categories_counter</span> = <span style="color:#66d9ef">true</span> <span style="color:#75715e"># Enable counter for each category in &#34;Categories&#34; widget</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tags_counter</span> = <span style="color:#66d9ef">true</span> <span style="color:#75715e"># Enable counter for each tag in &#34;Tags&#34; widget</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">widgets</span>.<span style="color:#a6e22e">social</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">github</span> = <span style="color:#e6db74">&#34;github 用户名&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">email</span> = <span style="color:#e6db74">&#34;邮件地址&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在顶部添加菜单栏, weight 决定显示顺序</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">menu</span>]
+</span></span><span style="display:flex;"><span>    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;posts&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;博客文章&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/posts/&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;categories&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;所有分类&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/categories/&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;tags&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;所有标签&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/tags/&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>    [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;about&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;关于我&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about/&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">40</span>
+</span></span></code></pre></div><h2 id="自定义">自定义</h2>
 <p>新版的 hugo 和 mainroad 主题已经挺完善了, 之前还需要去修改主题满足我的需求, 这一次我希望尽量不修改主题本身来实现一些自定义.</p>
 <h3 id="替换-google-搜索为-bing-或者其它">替换 Google 搜索为 bing 或者其它</h3>
 <p>通过 <code>customJS</code> 加入的 js 中, 修改搜索框的行为, 监听提交事件, 跳转到 bing 即可. 具体细节可以 <code>F12</code> 查看我的 <code>custom.js</code> 文件.</p>
@@ -262,13 +269,13 @@ hugo server -D -p <span style="color:#ae81ff">8080</span>
 例如: 空格使用 <code> %20</code> 代替.</p>
 <h3 id="文章分类和标签设置">文章分类和标签设置</h3>
 <p>在文章元数据区域添加:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">categories:
-  <span style="color:#66d9ef">-</span> &#34;Category 1&#34;
-  <span style="color:#66d9ef">-</span> &#34;Category 2&#34;
-tags:
-  <span style="color:#66d9ef">-</span> &#34;Test&#34;
-  <span style="color:#66d9ef">-</span> &#34;Another test&#34;
-</code></pre></div><h3 id="语法高亮">语法高亮</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>categories:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> &#34;Category 1&#34;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> &#34;Category 2&#34;
+</span></span><span style="display:flex;"><span>tags:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> &#34;Test&#34;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> &#34;Another test&#34;
+</span></span></code></pre></div><h3 id="语法高亮">语法高亮</h3>
 <p>方法 1: 可以在 md 文档中使用标准的格式, 三个 ` + 语言名称.</p>
 <p>方法 2: 使用高级高亮语法, 可以实现行号显示, 行高亮等功能,
 参考 <a href="https://gohugo.io/content-management/syntax-highlighting/">官方文档</a></p>
@@ -412,7 +419,7 @@ content/posts/post-title/figure.jpg
 	<a class="footer__link" href="/about/">联系我</a>
 </div>
 		<div class="footer__copyright">
-			&copy; 2021 MiguelTek.com.
+			&copy; 2022 MiguelTek.com.
 			<span class="footer__copyright-credits">基于 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 引擎和 <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> 主题</span>
 		</div>
 	</div>
